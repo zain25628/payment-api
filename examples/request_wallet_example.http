@@ -1,0 +1,14 @@
+### Request Wallet (Create /wallets/request)
+POST http://127.0.0.1:8000/wallets/request
+Content-Type: application/json
+X-API-Key: test-key-123
+
+{
+  "amount": 150,
+  "wallet_label": "Test Wallet 1",
+  "wallet_identifier": "WALLET-001",
+  "daily_limit": 1000,
+  "metadata": {
+    "note": "dev test from VS Code"
+  }
+}

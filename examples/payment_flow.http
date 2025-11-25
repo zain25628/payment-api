@@ -1,0 +1,61 @@
+### 0) Health check
+GET http://127.0.0.1:8000/health
+
+###
+
+### 1) Incoming SMS - simulate payment SMS from provider
+POST http://127.0.0.1:8000/incoming-sms
+Content-Type: application/json
+X-API-Key: test-key-123
+
+{
+  "payer_phone": "+963900000001",
+  "receiver_phone": "+963900000002",
+  "raw_message": "You received 150.00 SYP from +963900000001, txn TXN-123456",
+  "amount": 150,
+  "currency": "SYP",
+  "txn_id": "TXN-123456"
+}
+
+###
+
+### 2) Request Wallet - create / link a wallet
+POST http://127.0.0.1:8000/wallets/request
+Content-Type: application/json
+X-API-Key: test-key-123
+
+{
+  "amount": 150,
+  "wallet_label": "Test Wallet 1",
+  "wallet_identifier": "WALLET-001",
+  "daily_limit": 1000,
+  "metadata": {
+    "note": "dev test from REST client"
+  }
+}
+
+###
+
+### 3) Check payment - verify if payment is valid/available
+POST http://127.0.0.1:8000/payments/check
+Content-Type: application/json
+X-API-Key: test-key-123
+
+{
+  "amount": 150,
+  "currency": "SYP",
+  "payer_phone": "+963900000001"
+}
+
+###
+
+### 4) Confirm payment - confirm previously checked payment
+# ملاحظة: غير قيمة payment_id و confirm_token حسب الرد اللي يرجع من /payments/check
+POST http://127.0.0.1:8000/payments/confirm
+Content-Type: application/json
+X-API-Key: test-key-123
+
+{
+  "payment_id": 1,
+  "confirm_token": "CONFIRM-TOKEN-FROM-CHECK"
+}

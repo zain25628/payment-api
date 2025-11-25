@@ -1,0 +1,2 @@
+2025-11-25 12:42:42.090 +04 [43224] LOG:  redirecting log output to logging collector process
+2025-11-25 12:42:42.090 +04 [43224] HINT:  Future log output will appear in directory "log".
